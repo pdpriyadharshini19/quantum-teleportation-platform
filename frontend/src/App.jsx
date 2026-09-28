@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+const API_BASE = "https://quantum-teleportation-platform.onrender.com";
 
 const PRESETS = [
   { label: "|0>", theta: 0 },
@@ -120,7 +120,7 @@ export default function App() {
   const chatEndRef = useRef(null);
 
   useEffect(() => {
-    fetch("/api/suggested-questions")
+    fetch(`${API_BASE}/api/suggested-questions`)
       .then((r) => r.json())
       .then((d) => setSuggested(d.questions || []))
       .catch(() => setSuggested([]));
@@ -137,8 +137,8 @@ export default function App() {
     const alpha_real = Math.cos(rad);
     const beta_real = negative ? -Math.sin(rad) : Math.sin(rad);
     try {
-      const res = await fetch("/api/teleport", {
-        method: "POST",
+    const res = await fetch(`${API_BASE}/api/teleport`, {
+      method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ alpha_real, alpha_imag: 0, beta_real, beta_imag: 0 }),
       });
@@ -160,7 +160,7 @@ export default function App() {
     setInput("");
     setSending(true);
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch(`${API_BASE}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: q }),
