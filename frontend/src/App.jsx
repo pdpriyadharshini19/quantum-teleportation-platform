@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 const API_BASE = "https://quantum-teleportation-platform.onrender.com";
 
 const PRESETS = [
